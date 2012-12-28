@@ -1,0 +1,27 @@
+#!/bin/bash
+
+case "$1" in
+  -h|-?|--help)
+    cat <<HELP
+usage: git release [branch]
+
+Merges the current branch in the target branch (by default this is the stable branch).
+Pushes to the origin and returns to the current branch. This is useful for deploying
+HELP
+    exit
+    ;;
+  *)
+    if [[ ! $1 ]]; then
+      TARGET=stable
+    else
+      TARGET=$1
+    fi
+    ;;
+esac
+
+BRANCH=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+
+git checkout $TARGET
+git merge $BRANCH
+git push
+git checkout $BRANCH
