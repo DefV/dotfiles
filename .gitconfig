@@ -1,0 +1,25 @@
+[user]
+  name = Jan De Poorter
+  email = jan@defv.be
+[alias]
+  co = checkout
+  st = status
+  ci = commit
+  latest = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %(refname:short)'
+[diff]
+  # For Github-style word diffs
+  wordRegex = [^[:space:]]
+	tool = gvimdiff
+[color]
+  ui = auto
+[core]
+  excludesfile = /Users/jan/.gitignore
+  attributesfile = /Users/jan/.gitattributes
+[branch]  
+  autosetuprebase = always
+[github]
+  user = defv
+[push]
+  default = tracking
+[url "git@git.sumocoders.be:"]
+  insteadOf = sumo:
