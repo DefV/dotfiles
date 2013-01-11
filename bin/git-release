@@ -1,25 +1,45 @@
 #!/bin/bash
 
-case "$1" in
+for OPT in $@; do
+case "$OPT" in
+  -f|--force)
+    FORCED=1
+    ;;
   -h|-?|--help)
     cat <<HELP
-usage: git release [branch]
+usage: git release [options] [branch]
 
 Merges the current branch in the target branch (by default this is the stable branch).
 Pushes to the origin and returns to the current branch. This is useful for deploying
+
+Options:
+  -f, --force    Don't ask for merge confirmation after showing the short lo
 HELP
     exit
     ;;
   *)
-    if [[ ! $1 ]]; then
-      TARGET=stable
-    else
-      TARGET=$1
-    fi
+    TARGET=$OPT
     ;;
 esac
+done
+
+if [[ ! $TARGET ]]; then
+  TARGET=stable
+fi
 
 BRANCH=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+
+  echo "These changes will be merged from $BRANCH to $TARGET"
+  git --no-pager log --oneline $TARGET..$BRANCH
+
+if [[ ! $FORCED ]]; then
+  echo -n "OK? (Y/n)> "
+  read ACK
+
+  if [[ $ACK != "y" && $ACK != "yes" && $ACK != "" ]]; then
+    exit
+  fi
+fi
 
 git checkout $TARGET
 git merge $BRANCH
