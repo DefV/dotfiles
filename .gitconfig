@@ -13,9 +13,14 @@
 [color]
   ui = auto
 [core]
-  excludesfile = /Users/jan/.gitignore
-  attributesfile = /Users/jan/.gitattributes
-[branch]  
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  pager = less -S
+[diff "ruby"]
+  funcname = "^ *\\(\\(def\\) .*\\)"
+[diff "image"]
+  textconv = identify
+[branch]
   autosetuprebase = always
 [github]
   user = defv
@@ -25,3 +30,5 @@
   insteadOf = sumo:
 [init]
   templatedir = ~/.git_template
+[merge]
+  summary = true
