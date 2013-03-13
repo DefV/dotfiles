@@ -23,3 +23,5 @@
   default = tracking
 [url "git@git.sumocoders.be:"]
   insteadOf = sumo:
+[init]
+  templatedir = ~/.git_template
