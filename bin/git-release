@@ -27,6 +27,7 @@ if [[ ! $TARGET ]]; then
   TARGET=stable
 fi
 
+git fetch origin $TARGET:$TARGET
 BRANCH=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
 
   echo "These changes will be merged from $BRANCH to $TARGET"
